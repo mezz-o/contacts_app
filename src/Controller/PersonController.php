@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Information;
 use App\Entity\Person;
 use App\Form\PersonType;
 use App\Repository\PersonRepository;
@@ -64,6 +65,23 @@ class PersonController extends AbstractController
         }
 
         return $this->render("/person/edit.html.twig", ["form"=>$form->createView()]);
+
+    }
+
+/**
+ * @Route("/delete/{id<[0-9]+>}", name="app_person_delete", methods="DELETE")
+ */
+    public function delete(Request $req, EntityManagerInterface $em, Person $person)
+    {
+
+        if ($this->isCsrfTokenValid('person_delete_' .$person->getId(), $req->request->get('csrf_token'))) {
+
+            $em->remove($person);
+            $em->flush();
+
+         }
+
+        return $this->redirectToRoute("app_home");
 
     }
 

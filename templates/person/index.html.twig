@@ -8,7 +8,34 @@
 
 {% for person in persons %}
 <h1> {{ person.FirstName }} {{ person.LastName }} </h1>
-<a href="{{ path("app_person_edit", {id:person.id}) }}">edit</a>
+<p>{{ person.information.MobileNumber|default("undefined") }}</p>
+<small>{{ person.information.Email|default("undefined") }}</small><br />
+<a href="{{ path("app_person_edit", {id:person.id}) }}">edit |</a>
+          <a 
+            href="#"
+            onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-delete-pin-form').submit();">
+            Delete
+          </a>
+
+          <form id="js-delete-pin-form"
+            action="{{
+            path(
+              'app_person_delete',
+              {
+                id: person.id
+              }
+            )
+            }}"
+            method="post"
+            style="display:none;">
+            <input type="hidden"
+              name="csrf_token"
+              value="{{ csrf_token('person_delete_' ~ person.id) }}" />
+            <input type="hidden" name="_method" value="DELETE" />
+          </form>
+
+<a href="{{ path("app_information_create") }}">Add informations</a>
+
 {% endfor %}
 
 {% endblock %}

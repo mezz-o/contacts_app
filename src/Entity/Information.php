@@ -18,7 +18,7 @@ class Information
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $MobileNumber;
 
@@ -26,6 +26,12 @@ class Information
      * @ORM\Column(type="string", length=255)
      */
     private $Email;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity=Person::class, inversedBy="information", cascade={"persist", "remove"})
+     */
+    private $person_information;
 
     public function getId(): ?int
     {
@@ -52,6 +58,30 @@ class Information
     public function setEmail(string $Email): self
     {
         $this->Email = $Email;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    public function getPersonInformation(): ?Person
+    {
+        return $this->person_information;
+    }
+
+    public function setPersonInformation(?Person $person_information): self
+    {
+        $this->person_information = $person_information;
 
         return $this;
     }

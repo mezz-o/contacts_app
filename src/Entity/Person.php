@@ -27,6 +27,11 @@ class Person
      */
     private $LastName;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Information::class, mappedBy="person_information", cascade={"persist", "remove"})
+     */
+    private $information;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,24 @@ class Person
     public function setLastName(string $LastName): self
     {
         $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getInformation(): ?Information
+    {
+        return $this->information;
+    }
+
+    public function setInformation(?Information $information): self
+    {
+        $this->information = $information;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPerson_information = null === $information ? null : $this;
+        if ($information->getPersonInformation() !== $newPerson_information) {
+            $information->setPersonInformation($newPerson_information);
+        }
 
         return $this;
     }
