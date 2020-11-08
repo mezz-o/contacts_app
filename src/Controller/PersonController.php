@@ -69,13 +69,14 @@ class PersonController extends AbstractController
     }
 
 /**
- * @Route("/delete/{id<[0-9]+>}", name="app_person_delete", methods="DELETE")
+ * @Route("/{id<[0-9]+>}", name="app_person_delete", methods="DELETE")
  */
     public function delete(Request $req, EntityManagerInterface $em, Person $person)
     {
 
         if ($this->isCsrfTokenValid('person_delete_' .$person->getId(), $req->request->get('csrf_token'))) {
 
+            
             $em->remove($person);
             $em->flush();
 

@@ -7,6 +7,7 @@
 <a href="{{ path("app_person_create") }}">Add a contact</a>
 
 {% for person in persons %}
+<div>
 <h1> {{ person.FirstName }} {{ person.LastName }} </h1>
 <p>{{ person.information.MobileNumber|default("undefined") }}</p>
 <small>{{ person.information.Email|default("undefined") }}</small><br />
@@ -22,7 +23,7 @@
             path(
               'app_person_delete',
               {
-                id: person.id
+                id:person.id
               }
             )
             }}"
@@ -35,7 +36,7 @@
           </form>
 
 <a href="{{ path("app_information_create") }}">Add informations</a>
-
+</div>
 {% endfor %}
 
 {% endblock %}
