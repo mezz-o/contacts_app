@@ -14,11 +14,11 @@
 <a href="{{ path("app_person_edit", {id:person.id}) }}">edit |</a>
           <a 
             href="#"
-            onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-delete-pin-form').submit();">
+            onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-delete-pin-form-{{ person.id }}').submit();">
             Delete
           </a>
 
-          <form id="js-delete-pin-form"
+          <form id="js-delete-pin-form-{{ person.id }}"
             action="{{
             path(
               'app_person_delete',
